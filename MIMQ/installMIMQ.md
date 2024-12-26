@@ -185,6 +185,103 @@ vi /etc/exports
 	  su - mqm -c "touch /MQHA/test_file"
 	  su - mqm -c "rm /MQHA/tes_file"
 	  ```
-	  
+
+# IBM MQ Advanced Kurulumu
+ ```bash
+ # paket dizinine geç
+ cd /tmp 
+ 
+ # tar dosyasını aç ve MQServer dizinine geç sonrasında lisans kabul et.
+ tar -xvzf 9.4.0.0-IBM-MQ-LinuxX64.tar.gz
+ cd MQServer/
+ ./mqlicense.sh -accept
+ 
+ # paketlerin kurulumu
+ rpm -ivh MQ*.rpm
+ 
+ 
+ # Gerekli kontroller PATH ayarlanması, örnek çıktılar aşağıda
+ 
+ [root@ibmmq11 bin]# export PATH=$PATH:/opt/mqm/bin
+ [root@ibmmq11 bin]# echo 'export PATH=$PATH:/opt/mqm/bin' >> ~/.bashrc
+ source ~/.bashrc
+ [root@ibmmq11 bin]# echo 'export PATH=$PATH:/opt/mqm/bin' >> /etc/profile
+ source /etc/profile
+ /opt/mqm/bin/setmqprd -i 1 -p ADVANCED
+
+ [root@ibmmq11 bin]# dspmqinst
+ InstName:      Installation1
+ InstDesc:
+ Identifier:    1
+ InstPath:      /opt/mqm
+ Version:       9.4.0.0
+ Primary:       No
+ State:         Available
+ LicenseType:   Production
+ Entitlement:   IBM MQ Advanced
+ Fixes:
+ [root@ibmmq11 bin]#
+
+ # Versiyon ve lisans kontrolüdspmqver -p 1 -f 2
+ 
+ ```
+ 
+# MQ Güvenlik Ayarları
+```bash
+ #firewall
+ firewall-cmd --permanent --add-port=1414/tcp
+ firewall-cmd --permanent --add-port=1416/tcp
+ firewall-cmd --permanent --add-port=9443/tcp
+ firewall-cmd --reload
+ 
+ # mqm kullanıcı ayarları
+ echo ". /opt/mqm/bin/setmqenv -n Installation1" >> /home/mqm/.bashrc
+ ```
+ 
+# Multi-Instance Queue Manager Yapılandırılması
+ #Active Instance Kurulumu (ibmmq11)
+ 	# buradaki adımlar oluşuturulan channel ve ayarlar tamamen başka bir sunucuda ki MQ'ya göre 
+	yapılmıştır. Ben burada Windows üzerine kurduğum MQ'ya mesaj atmak için yapılandırma yapıyorum.
+ 
+ ```bash
+ # mqm kullanıcısına geç 
+ su - mqm
+ # Queue Manager Oluşturma
+ crtmqm -p 1414 -u SYSTEM.DEAD.LETTER.QUEUE -md /MQHA/qmgrs -ld /MQHA/logs QMMI1
+ # Queue Manager başlatma
+ str -x QMMI1
+ # Queue Manager yapılandırılması
+ runmqsc QMMI1
+ ALTER QMGR CHLAUTH(DISABLED)
+ ALTER QMGR CONNAUTH('')
+ REFRESH SECURTY TYPE(CONNAUTH)
+ ALTER CHANNEL(SYSTEM.DEF.SVRCONN) CHLTYPE(SVRCONN) MCAUSER('mqm')
+ DEFINE CHANNEL(WIN.CHANNEL) CHLTYPE(SVRCONN)
+ ALTER CHANNEL(WIN.CHANNEL) CHLTYPE(SVRCONN) MCAUSER('mqm')
+ DEFINE QLOCAL(TEST.QUEUE) DEFPSIST(YES)
+ DEFINE CHANNEL(SERVER.CHANNEL) CHLTYPE(SVRCONN)
+ ALTER CHANNEL(SERVER.CHANNEL) CHLTYPE(SVRCONN) MCAUSER('mqm')
+ END
+ 
+ # Queue Manager Durumu
+ dspmq -xf -m QMMI1
+ 
+ # Yapılandırma Bilgilerini alma
+ dspqinf -o command QMMI1
+ 
+ ```
+ 
+ # Standby Instance Kurulumu (ibmmq21)
+ ```bash
+ # mqm kullanıcısına geç
+ su - mqm
+ # Queue Manager Bilgilerini ekleme
+ addmqinf -s QueueManager -v Name=QMMI1 -v Directory=QMMI1 -v Prefix=/var/mqm -v DataPath=/MQHA/qmgrs/QMMI1
+ 
+ # Standby instance başlatma
+ strmqm -x QMMI1
+ 
+ # Durumu kontrol et
+ dspmq -xf -m QMMI1
 
 
