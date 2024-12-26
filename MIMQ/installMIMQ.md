@@ -125,7 +125,66 @@ vi /etc/exports
  showmount -e localhost
  
  ```
- 
 
+# NFS Server Güvenlik Ayarları
+```bash
+	#firewall kuralları -> burada firewall açıkça bunları uygulamanız gerekir.
+	firewall-cmd --permanent --add-service=nfs
+	firewall-cmd --permanent --add-service=rpc-bind
+	firewall-cmd --permanent --add-service=mountd
+	firewall-cmd --permanent --add-port=2049/tcp
+	firewall-cmd --permanent --add-port=2049/udp
+	firewall-cmd --reload
+	
+	# SELinux ayaları 
+	setsebool -P nfs_export_all_ro=1
+	setsebool -P nfs_export_all_rw=1
+	
+	# NFS güvenlik denetimi
+	rpcinfo -p localhost
+	
+	```
+	
+*******
+
+# IBM MQ Server Kurulumu (ibmmq11 ve ibmmq21)
+
+	# NFS Client Kurulumu
+	```bash
+	 # NFS client paketleri
+	 dnf install -y nfs-utils
+	 
+	 # NFS Servisleri
+	 systemctl enable rpcbind
+	 systemctl start rpcbind
+	 ```
+	 
+	 # NFS Mount Yapılandırılması
+	 ```bash
+	  # Mount dizini
+	  mkdir -p /MQHA
+	  mkdir -p /MQHAlogs 
+	  chown mqm:mqm /MQHA
+	  chmod 775 /MQHA
+	  
+	  # fstab yapılandırılması
+	  vi /etc/fstab
+	  
+	  #eklenecek satır 
+	  ibm1.fyre.ibm.com:/MQHA    /MQHA   nfs4    rw,hard,intr,bg,nofail,vers=4.1,timeo=600,retrans=2,sec=sys,actimeo=120  0 0
+	  
+	  # Mount işlemi ve test
+	  mount -a
+	  df -h | grep MQHA
+	  
+	  #output: df -h | grep MQHA ->>> ibm1.fyre.ibm.com:/MQHA  233G  5.2G  228G   3% /MQHA
+	  
+	  #output: mount | grep MQHA ->>> ibm1.fyre.ibm.com:/MQHA on /MQHA type nfs4 (rw,relatime,vers=4.1,rsize=1048576,wsize=1048576,namlen=255,acregmin=120,acregmax=120,acdirmin=120,acdirmax=120,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=9.46.244.57,local_lock=none,addr=9.46.244.83)
+	  
+	  # Mount testi
+	  su - mqm -c "touch /MQHA/test_file"
+	  su - mqm -c "rm /MQHA/tes_file"
+	  ```
+	  
 
 
