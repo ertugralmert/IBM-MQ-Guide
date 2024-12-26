@@ -92,6 +92,40 @@ systemctl status rpcbind
 systemctl status nfs-server
 ```
 
+# NFS Dizin Yapısı
+```bash
+# Ana dizinleri oluşturma
+mkdir -p /MQHA
+mkdir -p /MQHA/logs
+mkdir -p /MQHA/qmgrs
+
+# İzinleri ayarlama
+chown -R mqm:mqm /MQHA
+chmod -R 775 /MQHA
+
+# izin kontrol
+ls -lR /MQHA
+```
+
+
+# NFS Paylaşım Konfigürasyonu
+```bash
+# /etc/exports dosyasını düzenleme
+vi /etc/exports
+
+# eklenecek satır ( güvenli konfigürasyon)
+ /MQHA  ibmmq11.fyre.ibm.com(rw,sync,no_wdelay,no_root_squash,sec=sys) ibmmq21.fyre.ibm.com(rw,sync,no_wdelay,no_root_squash,sec=sys)
+ 
+ # NFS yapılandırılmasını yenilemek
+ exports -ravf
+ 
+ # Paylaşımları kontrol edelim
+ exportfs -v
+ 
+ showmount -e localhost
+ 
+ ```
+ 
 
 
 
