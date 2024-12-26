@@ -32,18 +32,18 @@ Redundant network bağlantısı önerilir.
 #Server Hazırlıkları ve Altyapı
  ##ortak yapılması gerekenler
  
- ''' bash
+ ``` bash
  # /etc/hosts dosyasına tüm serverlara hostname'ler eklenmeli
  vi /etc/hosts
  #Eklenecek satırlar
  9.46.244.83 ibm1.fyre.ibm.com ibm1 nfsserver
  9.46.244.57 ibmmq11.fyre.ibm.com ibmmq11 mqserver1
  9.46.244.61 ibmmq21.fyre.ibm.com ibmmq21 mqserver2
- '''
+ ````
  
  #Temel sistem ayarları
  
- '''bash
+```bash
  #zaman senkroniasyonu
  dnf install -y chrony
  systemctl enable chronyd
@@ -59,10 +59,10 @@ Redundant network bağlantısı önerilir.
  mqm soft nproc  4096
  mqm hard nproc  4096
  EOF
- '''
+ ```
  
 #mqm kullanıcı ve grup oluşturma
-'''bash
+```bash
 #tüm kullanıcılarda aynı UID/GID olmalı. Bu yüzden MQ kurulumu önce manual olarak oluşturuyoruz
 groupadd -g 501 mqm
 useradd -u 501 -g mqm -m -d /home/mqm mqm
