@@ -283,5 +283,32 @@ vi /etc/exports
  
  # Durumu kontrol et
  dspmq -xf -m QMMI1
+```
 
 
+--------------------------------
+
+# Final
+	# server1
+ ```bash
+ [mqm@ibmmq11 bin]$ dspmq -xf -m QMMI1
+ QMNAME(QMMI1)                                             STATUS(Running as standby)
+     INSTANCE(ibmmq21.fyre.ibm.com) MODE(Active)
+     INSTANCE(ibmmq11.fyre.ibm.com) MODE(Standby)
+         master(ibmmq21.fyre.ibm.com,7450466801868314917)
+         active(ibmmq21.fyre.ibm.com,7450466801868314917)
+         standby(ibmmq11.fyre.ibm.com,7450466956483959667)
+ [mqm@ibmmq11 bin]$
+ 
+ 	# server2
+	[mqm@ibmmq21 bin]$ dspmq -xf -m QMMI1
+	QMNAME(QMMI1)                                             STATUS(Running)
+	    INSTANCE(ibmmq21.fyre.ibm.com) MODE(Active)
+	    INSTANCE(ibmmq11.fyre.ibm.com) MODE(Standby)
+	        master(ibmmq21.fyre.ibm.com,7450466801868314917)
+	        active(ibmmq21.fyre.ibm.com,7450466801868314917)
+	        standby(ibmmq11.fyre.ibm.com,7450466956483959667)
+	[mqm@ibmmq21 bin]$
+	````
+ 
+ 
