@@ -1,0 +1,5 @@
+Sanal İşlemci Çekirdekleri (VPC)
+	• VPC Nedir?VPC, IBM MQ'nun lisanslanmasında kullanılan bir birimdir. Bir VPC, ya sanal bir makineye atanan sanal bir çekirdek ya da sanal makineler için ayrılmamış bir fiziksel işlemci çekirdeği olabilir. Eğer sanal çekirdek sayısı fiziksel çekirdek sayısını aşarsa, lisanslanması gereken VPC sayısı fiziksel çekirdek sayısına eşit olacaktır.
+	• VPC KullanımıVPC'lerin kullanımı, Sanal İşlemci Çekirdek-Örnek-Saatleri (VPC Instance-Hours) cinsinden ölçülür ve bu ölçüm dakika başına yapılır. Bir "örnek" (Instance), IBM MQ'nun çalışan bir kopyasını ifade eder ve yedekleme amacıyla kullanılan kopyalar (soğuk veya sıcak yedeklemeler) dahil edilmez.
+	• Lisans GereksinimleriIBM MQ'nun her örneği için, her VPC'nin sağlanabileceği toplam saat sayısına göre yeterli lisans hakkı alınmalıdır. Yani, her yıl için VPC başına toplam 720 saatlik lisans alınması gereklidir, her bir VPC'nin ne zaman kullanıldığına bakılmaksızın.
+	• Ölçüm Aracı KullanımıIBM, programın kullanımını izlemek için bir ölçüm aracı sağlar. Bu aracın kullanılmaması durumunda, her VPC için ayda 720 saatlik bir kullanım için lisans almak gerekir.
