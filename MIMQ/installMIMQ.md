@@ -239,7 +239,7 @@ vi /etc/exports
  ```
  
 # Multi-Instance Queue Manager Yapılandırılması
- #Active Instance Kurulumu (ibmmq11)
+ # Active Instance Kurulumu (ibmmq11)
  	# buradaki adımlar oluşuturulan channel ve ayarlar tamamen başka bir sunucuda ki MQ'ya göre 
 	yapılmıştır. Ben burada Windows üzerine kurduğum MQ'ya mesaj atmak için yapılandırma yapıyorum.
  
