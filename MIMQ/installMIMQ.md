@@ -127,7 +127,7 @@ vi /etc/exports
  ```
 
 # NFS Server Güvenlik Ayarları
-```bash
+	```bash
 	# firewall kuralları -> burada firewall açıkça bunları uygulamanız gerekir.
 	firewall-cmd --permanent --add-service=nfs
 	firewall-cmd --permanent --add-service=rpc-bind
