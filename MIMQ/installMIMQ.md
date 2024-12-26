@@ -128,7 +128,7 @@ vi /etc/exports
 
 # NFS Server Güvenlik Ayarları
 ```bash
-	#firewall kuralları -> burada firewall açıkça bunları uygulamanız gerekir.
+	# firewall kuralları -> burada firewall açıkça bunları uygulamanız gerekir.
 	firewall-cmd --permanent --add-service=nfs
 	firewall-cmd --permanent --add-service=rpc-bind
 	firewall-cmd --permanent --add-service=mountd
@@ -142,12 +142,10 @@ vi /etc/exports
 	
 	# NFS güvenlik denetimi
 	rpcinfo -p localhost
-	
-	```
 	```
 	
 	
-*******
+-----------------------------------------
 
 # IBM MQ Server Kurulumu (ibmmq11 ve ibmmq21)
 
