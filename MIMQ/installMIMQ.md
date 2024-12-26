@@ -144,6 +144,8 @@ vi /etc/exports
 	rpcinfo -p localhost
 	
 	```
+	```
+	
 	
 *******
 
