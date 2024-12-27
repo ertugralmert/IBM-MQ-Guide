@@ -311,6 +311,6 @@ vi /etc/exports
 	        active(ibmmq21.fyre.ibm.com,7450466801868314917)
 	        standby(ibmmq11.fyre.ibm.com,7450466956483959667)
 	[mqm@ibmmq21 bin]$
-	````
+	```
  
  
