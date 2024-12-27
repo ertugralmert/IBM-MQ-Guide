@@ -301,7 +301,7 @@ vi /etc/exports
  [mqm@ibmmq11 bin]$
  ```
  
- # server2
+ ### server2
 	```bash
 	[mqm@ibmmq21 bin]$ dspmq -xf -m QMMI1
 	QMNAME(QMMI1)                                             STATUS(Running)
