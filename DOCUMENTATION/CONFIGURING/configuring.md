@@ -13,31 +13,44 @@ Dosya Konumları
 Önemli Stanzalar ve Parametreler
 1. Log Stanza
 Kuyruk yöneticisinin loglama ayarlarını belirler.
-Log:  LogPrimaryFiles=3  LogSecondaryFiles=2  LogFilePages=4096  LogType=CIRCULAR  LogBufferPages=0
+Log:
+  LogPrimaryFiles=3
+  LogSecondaryFiles=2
+  LogFilePages=4096
+  LogType=CIRCULAR
+  LogBufferPages=0
 	• LogPrimaryFiles: Birincil log dosyası sayısı.
 	• LogSecondaryFiles: Yedek log dosyası sayısı.
 	• LogType: Loglama tipi (CIRCULAR veya LINEAR).
 	• LogBufferPages: Log için ayrılan tampon boyutu.
 2. Channels Stanza
 Kanal (“channel”) yapılandırmasını tanımlar.
-Channels:  MaxChannels=100  MaxActiveChannels=50
+Channels:
+  MaxChannels=100
+  MaxActiveChannels=50
 	• MaxChannels: Tanımlanabilecek maksimum kanal sayısı.
 	• MaxActiveChannels: Aynı anda çalışabilecek maksimum kanal sayısı.
 3. SSL Stanza
 SSL/TLS protokolü ile ilgili ayarları belirler.
-SSL:  KeyRepository=/var/mqm/ssl  SSLProtocol=TLSV12
+SSL:
+  KeyRepository=/var/mqm/ssl
+  SSLProtocol=TLSV12
 	• KeyRepository: Anahtar deposunun bulunduğu dizin.
 	• SSLProtocol: Kullanılacak SSL/TLS protokolü versiyonu.
 4. ExitPath Stanza
 Kullanıcı tanımlı program (“exit program”) yollarını tanımlar.
-ExitPath:  ExitsDefaultPath=/var/mqm/exits  ExitsDefaultPath64=/var/mqm/exits64
+ExitPath:
+  ExitsDefaultPath=/var/mqm/exits
+  ExitsDefaultPath64=/var/mqm/exits64
 5. TuningParameters Stanza
 Performans optimizasyonu için kullanılır.
-TuningParameters:  MaxUncommittedMsgs=10000
+TuningParameters:
+  MaxUncommittedMsgs=10000
 	• MaxUncommittedMsgs: Bir işlemde işlenebilecek maksimum mesaj sayısı.
 6. Security Stanza
 Güvenlik ayarlarını yapılandırır.
-Security:  PermitStandby=YES
+Security:
+  PermitStandby=YES
 	• PermitStandby: Yedek kuyruk yöneticisinin izin verilip verilmediğini belirler.
 
 Streaming Queues (Akış Kuyrukları) Yapılandırması
@@ -52,10 +65,12 @@ Parametreler
 Örnek Tanımlar
 Best Effort (BESTEF):
 Orijinal mesaj işlenmeye devam eder.
-DEFINE QLOCAL(ANALYTICS.QUEUE)ALTER QLOCAL(ORDERS.QUEUE) STRMQOS(BESTEF) STREAMQ(ANALYTICS.QUEUE)
+DEFINE QLOCAL(ANALYTICS.QUEUE)
+ALTER QLOCAL(ORDERS.QUEUE) STRMQOS(BESTEF) STREAMQ(ANALYTICS.QUEUE)
 Must Duplicate (MUSTDUP):
 Orijinal mesaj kopya oluşturulana kadar işlenmez.
-DEFINE QLOCAL(AUDIT.QUEUE)ALTER QLOCAL(PAYMENTS.QUEUE) STRMQOS(MUSTDUP) STREAMQ(AUDIT.QUEUE)
+DEFINE QLOCAL(AUDIT.QUEUE)
+ALTER QLOCAL(PAYMENTS.QUEUE) STRMQOS(MUSTDUP) STREAMQ(AUDIT.QUEUE)
 Dikkat Edilecek Noktalar
 	• Streaming kuyruğunun maksimum derinliği (“max depth”), orijinal kuyruğun maksimum derinliğinden daha küçük olmamalıdır.
 	• MUSTDUP ayarı yapılmış bir kuyruğta, hedef kuyruk oluşturulmamışsa işlem başarısız olur.
@@ -92,8 +107,12 @@ SSL/TLS Yapılandırması
 Sertifika Yönetimi
 Sertifikaları oluşturmak ve yönetmek için runmqakm komutu kullanılır.
 Örnek Adımlar:
-	1. Sertifika deposu oluşturun:runmqakm -keydb -create -db key.kdb -pw password -type cms -stash
-	2. Sertifika isteği oluşturun:runmqakm -certreq -create -db key.kdb -pw password -label ibmmqcert -dn "CN=example.com" -file certreq.arm
-	3. Sertifikayı içe aktarın:runmqakm -cert -add -db key.kdb -pw password -label ibmmqcert -file cert.arm
-	4. Kanala SSL yapılandırmasını ekleyin:DEFINE CHANNEL(SSL.CHANNEL) CHLTYPE(SVRCONN) SSLCIPH(TLS_RSA_WITH_AES_128_CBC_SHA256) SSLPEER('CN=example.com')
+	1. Sertifika deposu oluşturun:
+runmqakm -keydb -create -db key.kdb -pw password -type cms -stash
+	2. Sertifika isteği oluşturun:
+runmqakm -certreq -create -db key.kdb -pw password -label ibmmqcert -dn "CN=example.com" -file certreq.arm
+	3. Sertifikayı içe aktarın:
+runmqakm -cert -add -db key.kdb -pw password -label ibmmqcert -file cert.arm
+	4. Kanala SSL yapılandırmasını ekleyin:
+DEFINE CHANNEL(SSL.CHANNEL) CHLTYPE(SVRCONN) SSLCIPH(TLS_RSA_WITH_AES_128_CBC_SHA256) SSLPEER('CN=example.com')
 
