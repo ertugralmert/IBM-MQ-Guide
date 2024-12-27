@@ -289,7 +289,7 @@ vi /etc/exports
 --------------------------------
 
 # Final
-	# server1
+### server1
  ```bash
  [mqm@ibmmq11 bin]$ dspmq -xf -m QMMI1
  QMNAME(QMMI1)                                             STATUS(Running as standby)
@@ -299,8 +299,10 @@ vi /etc/exports
          active(ibmmq21.fyre.ibm.com,7450466801868314917)
          standby(ibmmq11.fyre.ibm.com,7450466956483959667)
  [mqm@ibmmq11 bin]$
+ ```
  
- 	# server2
+ # server2
+	```bash
 	[mqm@ibmmq21 bin]$ dspmq -xf -m QMMI1
 	QMNAME(QMMI1)                                             STATUS(Running)
 	    INSTANCE(ibmmq21.fyre.ibm.com) MODE(Active)
