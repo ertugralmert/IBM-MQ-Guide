@@ -47,7 +47,8 @@ Prosedürel dillerde, MQI (Message Queue Interface) kullanılarak kuyruklara eri
 	• MQGET: Mesaj alma.
 Örnek:
 
-MQMD md = {MQMD_DEFAULT};MQPUT(queueHandle, &md, &putOptions, dataLength, data, &compCode, &reason);
+MQMD md = {MQMD_DEFAULT};
+MQPUT(queueHandle, &md, &putOptions, dataLength, data, &compCode, &reason);
 
 Uygulama Tasarımı ve Geliştirme Konuları
 	1. Mesaj Kalıcılığı (Persistence):
@@ -68,16 +69,21 @@ Birden fazla kuyruk yöneticisine bağlanmak için:
 	• Load Balancer: Yük dengelemesi yaparak istekleri yönlendirir.
 
 Örnek Uygulama Kodları
-	1. Java JMS Örneği:QueueConnectionFactory factory = new MQQueueConnectionFactory();Queue queue = session.createQueue("QUEUE_NAME");MessageProducer producer = session.createProducer(queue);TextMessage message = session.createTextMessage("Hello MQ!");producer.send(message);
-	2. C++ Örneği:MQQueueManager qMgr("QM1");MQQueue queue = qMgr.AccessQueue("QUEUE1", MQOO_OUTPUT);MQMessage msg("Hello MQ!");queue.Put(msg);
-	
-	
-	
-	
+	1. Java JMS Örneği:
 
+QueueConnectionFactory factory = new MQQueueConnectionFactory();
+Queue queue = session.createQueue("QUEUE_NAME");
+MessageProducer producer = session.createProducer(queue);
+TextMessage message = session.createTextMessage("Hello MQ!");
+producer.send(message);
+	2. C++ Örneği:
 
-************
-
+MQQueueManager qMgr("QM1");
+MQQueue queue = qMgr.AccessQueue("QUEUE1", MQOO_OUTPUT);
+MQMessage msg("Hello MQ!");
+queue.Put(msg);
+	
+	
 IBM MQ Uygulamaları için Tasarım Değerlendirmeleri
 IBM MQ uygulamaları tasarlarken, platformlar ve çevrelerden nasıl yararlanacağınızı belirledikten sonra, IBM MQ’nun sunduğu özellikleri en verimli şekilde kullanmayı planlamanız gerekir.
 
@@ -141,10 +147,6 @@ Uygulama Performansını Artırmak İçin İpuçları
 Test ve Sorun Giderme
 	• MQ trace araçları, hataları izlemek ve çözümlemek için kullanılabilir.
 	• Hata Durumları: Teslim edilemeyen mesajlar için raporlar oluşturun ve uygun hata işleme mekanizmalarını tasarlayın.
-
-
-********************
-
 
 JMS/Jakarta Messaging ve Java Uygulamalarının Geliştirilmesi
 IBM MQ, Java tabanlı uygulamalar için üç farklı arayüz sağlar:
@@ -214,10 +216,6 @@ Geliştirme için Öneriler
 	3. Java SE SDK: Geliştirme için gerekli.
 	4. FIPS 140-2 Uyumluluğu: IBM MQ sınıfları JSSE sağlayıcıları ile kriptografik güvenlik sunar.
 
-
-******
-
-
 IBM MQ classes for JMS/Jakarta Messaging: Kurulum ve Yapılandırma
 IBM MQ sınıfları (JMS ve Jakarta Messaging) uygulamalarını çalıştırmadan önce uygun kurulum ve yapılandırma işlemlerini gerçekleştirmeniz gerekmektedir. Aşağıda, kurulum sonrası yapılandırma adımları detaylı olarak açıklanmıştır.
 
@@ -236,10 +234,16 @@ Kurulum sırasında aşağıdaki dosyalar ve dizinler oluşturulur:
 2. Ortam Değişkenlerinin Ayarlanması
 CLASSPATH Değişkeni
 Uygulamaları çalıştırmak için CLASSPATH aşağıdaki gibi ayarlanmalıdır:
-	• JMS 2.0:CLASSPATH=MQ_INSTALLATION_PATH/java/lib/com.ibm.mq.allclient.jar:MQ_INSTALLATION_PATH/samp/jms/samples:
-	• Jakarta Messaging 3.0:CLASSPATH=MQ_INSTALLATION_PATH/java/lib/com.ibm.mq.jakarta.client.jar:
+	• JMS 2.0:
+
+CLASSPATH=MQ_INSTALLATION_PATH/java/lib/com.ibm.mq.allclient.jar:MQ_INSTALLATION_PATH/samp/jms/samples:
+	• Jakarta Messaging 3.0:
+
+CLASSPATH=MQ_INSTALLATION_PATH/java/lib/com.ibm.mq.jakarta.client.jar:
 Ek Ortam Değişkenleri
-	• Windows: setmqenv komutu ile ortam değişkenlerini otomatik olarak ayarlayın:setmqenv
+	• Windows: setmqenv komutu ile ortam değişkenlerini otomatik olarak ayarlayın:
+
+setmqenv
 	• Linux/AIX: Uygun betikleri kullanın:
 		○ JMS 2.0 için: setjmsenv veya setjmsenv64
 		○ Jakarta Messaging için: setjms30env veya setjms30env64
@@ -247,8 +251,12 @@ Ek Ortam Değişkenleri
 3. Java Native Interface (JNI) Kütüphanelerinin Yapılandırılması
 JNI kütüphaneleri, bağlama (bindings) modu kullanılarak bağlanırken gereklidir.
 Kütüphane Yollarını Ayarlama
-	• Linux:export LD_LIBRARY_PATH=/opt/mqm/java/lib64:$LD_LIBRARY_PATH
-	• Windows:set PATH=C:\Program Files\IBM\MQ\java\lib64;%PATH%
+	• Linux:
+
+export LD_LIBRARY_PATH=/opt/mqm/java/lib64:$LD_LIBRARY_PATH
+	• Windows:
+
+set PATH=C:\Program Files\IBM\MQ\java\lib64;%PATH%
 JNI Hataları ve Çözümü
 Eğer ortam doğru yapılandırılmamışsa şu hata ile karşılaşabilirsiniz:
 
@@ -269,8 +277,13 @@ Bağlantı Modları
 	1. Client Mode: TCP/IP üzerinden uzak bağlantılar.
 	2. Bindings Mode: Aynı sistemde yerel bağlantılar.
 Queue Manager’ı Client Moduna Yapılandırma
-	1. Server Connection Kanalı Oluşturma:DEFINE CHANNEL(JAVA.CHANNEL) CHLTYPE(SVRCONN) TRPTYPE(TCP)
-	2. Dinleyici (Listener) Başlatma:DEFINE LISTENER(LISTENER.TCP) TRPTYPE(TCP) PORT(1414)START LISTENER(LISTENER.TCP)
+	1. Server Connection Kanalı Oluşturma:
+
+DEFINE CHANNEL(JAVA.CHANNEL) CHLTYPE(SVRCONN) TRPTYPE(TCP)
+	2. Dinleyici (Listener) Başlatma:
+
+DEFINE LISTENER(LISTENER.TCP) TRPTYPE(TCP) PORT(1414)
+START LISTENER(LISTENER.TCP)
 
 6. JMS Yetkilendirme (Authorization)
 Yetkilendirme komutları:
@@ -280,17 +293,17 @@ setmqaut -m QM1 -t qmgr -g jmsappsgroup +connect +inq
 	• Tüketici Yetkileri: get, inq, browse
 	• Geçici Kuyruklar: SYSTEM.TEMP.MODEL.QUEUE'ya erişim.
 
-
-****
-
-
 1. Point-to-Point ve Publish/Subscribe IVT (Kurulum Doğrulama Testi)
 IVT, bir kuyruğa veya konuya mesaj göndermeyi ve ardından bu mesajı geri almayı doğrulamak için kullanılır.
 	• Bindings Modu: Queue Manager doğrudan bağlanır.
 	• Client Modu: Queue Manager ile TCP/IP üzerinden iletişim kurar.
 Komutlar:
-	• Bindings Modu:IVTRun -nojndi [-m qmgr] [-v providerVersion] [-t]
-	• Client Modu:IVTRun -nojndi -client -m qmgr -host hostname [-port port] [-channel channel]
+	• Bindings Modu:
+
+IVTRun -nojndi [-m qmgr] [-v providerVersion] [-t]
+	• Client Modu:
+
+IVTRun -nojndi -client -m qmgr -host hostname [-port port] [-channel channel]
 Sonuç: Başarılı bir test, kuyruğa mesaj gönderildiğini ve alındığını doğrulayan bir çıktı üretir.
 
 2. Allowlisting (İzin Listesi) ile ObjectMessage Güvenliği
@@ -299,8 +312,13 @@ Modlar:
 	• Discovery Modu: Uygulama tarafından kullanılan sınıfları tespit eder ve bir dosyaya kaydeder.
 	• Enforcement Modu: Sadece izin listesinde belirtilen sınıfları işleme alır.
 Sistem Özellikleri:
-	• Discovery:-Dcom.ibm.mq.jms.allowlist.discover=true-Dcom.ibm.mq.jms.allowlist=file:/path/to/allowlist.txt
-	• Enforcement:-Dcom.ibm.mq.jms.allowlist=file:/path/to/allowlist.txt
+	• Discovery:
+
+-Dcom.ibm.mq.jms.allowlist.discover=true
+-Dcom.ibm.mq.jms.allowlist=file:/path/to/allowlist.txt
+	• Enforcement:
+
+-Dcom.ibm.mq.jms.allowlist=file:/path/to/allowlist.txt
 İzin Listesi Dosyası Formatı:
 	• Her satırda tam sınıf adı olmalıdır.
 	• Yıldız (*) kullanımı paket seviyesinde joker karakter olarak kullanılabilir (ör. com.ibm.mq.*).
@@ -308,23 +326,26 @@ Sistem Özellikleri:
 3. Karakter Seti Dönüşümü ve Hata Yönetimi
 IBM MQ, kodlama/çözme sırasında karakterlerin dönüştürülemediği durumları işlemek için özelleştirilebilir ayarlar sunar.
 Sistem Özellikleri:
-	• Hata Eylemi (UnmappableCharacterAction):-Dcom.ibm.mq.cfg.jmqi.UnmappableCharacterAction=REPORT|REPLACE|IGNORE
-	• Yedekleme Baytı (UnmappableCharacterReplacement):-Dcom.ibm.mq.cfg.jmqi.UnmappableCharacterReplacement=decimal_value
+	• Hata Eylemi (UnmappableCharacterAction):
+
+-Dcom.ibm.mq.cfg.jmqi.UnmappableCharacterAction=REPORT|REPLACE|IGNORE
+	• Yedekleme Baytı (UnmappableCharacterReplacement):
+
+-Dcom.ibm.mq.cfg.jmqi.UnmappableCharacterReplacement=decimal_value
 Varsayılan: Hata raporlanır ve uygun bir istisna atılır.
 
 4. JMS ile Temel Örnekler
 IBM MQ, JMS kullanımı için örnek uygulamalar sağlar. Bu uygulamalar, kuyruğa mesaj gönderme, mesaj alma, JNDI kullanımı ve asenkron mesajlaşma gibi temel işlevleri içerir.
 Örnek Çalıştırma:
 	1. Çalıştırılacak örneğin bulunduğu dizine gidin.
-	2. Komutu çalıştırın:runjms SampleApplicationName -m QM1 -d QueueName
+	2. Komutu çalıştırın:
+
+runjms SampleApplicationName -m QM1 -d QueueName
 
 5. Sorun Giderme
 	• 2059 Hata Kodu: Queue Manager çalışmıyor olabilir. Queue Manager ayarlarını kontrol edin.
 	• Mesaj Okuma Hatası: Kuyruk eksik veya yazma/okuma izinleri kapalı olabilir.
 	• LDAP Bağlantı Sorunları: LDAP sunucusu düzgün yapılandırılmamış olabilir.
-
-
-****
 
 1. JMS/Jakarta Messaging Modeli
 JMS (Java Message Service) ve Jakarta Messaging, Java uygulamalarının mesajlaşma işlemleri gerçekleştirmesi için kullanılan bir API setidir. IBM MQ, JMS ve Jakarta Messaging desteği sunarak bu işlemleri gerçekleştirmenizi sağlar.
@@ -348,9 +369,18 @@ Bu örnek, IBM MQ'da MyQueue adında bir kuyruk temsil eden bir nesne oluşturur
 
 3. Mesaj Gönderimi
 Bir mesaj göndermek için şu adımlar izlenir:
-	1. MessageProducer (Mesaj Üreticisi) Oluşturma:javaCopy codeMessageProducer producer = session.createProducer(destination);
-	2. Mesaj Oluşturma: Örneğin, bir metin mesajı (text message):TextMessage message = session.createTextMessage("Merhaba Dünya");
-	3. Mesajı Gönderme:producer.send(message);
+	1. MessageProducer (Mesaj Üreticisi) Oluşturma:
+
+java
+Copy code
+MessageProducer producer = session.createProducer(destination);
+	2. Mesaj Oluşturma: Örneğin, bir metin mesajı (text message):
+
+
+TextMessage message = session.createTextMessage("Merhaba Dünya");
+	3. Mesajı Gönderme:
+
+producer.send(message);
 
 4. Mesaj Alma
 Mesajları almak için MessageConsumer kullanılır. İki yöntem vardır:
@@ -358,7 +388,11 @@ Mesajları almak için MessageConsumer kullanılır. İki yöntem vardır:
 	• Asenkron Alma: MessageListener ile mesajlar geldikçe işlenir.
 Örnek: Asenkron Alma
 
-consumer.setMessageListener(new MessageListener() {    public void onMessage(Message message) {        System.out.println("Mesaj alındı: " + message);    }});
+consumer.setMessageListener(new MessageListener() {
+    public void onMessage(Message message) {
+        System.out.println("Mesaj alındı: " + message);
+    }
+});
 
 5. Zehirli Mesajların (Poison Messages) Yönetimi
 Bir uygulama, işleyemediği mesajlarla karşılaşabilir. Bu tür mesajlar "zehirli mesaj" olarak adlandırılır. IBM MQ, bu mesajları şu şekilde yönetir:
@@ -381,11 +415,9 @@ JMS uygulamalarında kaynaklar zamanında serbest bırakılmalıdır:
 	• Mesaj Üreticileri ve Tüketicileri (MessageProducer ve MessageConsumer)
 Her birini kapatmak için close() metodu kullanılır:
 
-connection.close();session.close();producer.close();
-
-
-****
-
+connection.close();
+session.close();
+producer.close();
 
 IBM MQ'nun JMS ve Jakarta Messaging Kullanımıyla Modüler Uygulamalar Konfigürasyonu
 IBM MQ ile modüler uygulamalar geliştirmek için JMS veya Jakarta Messaging sınıflarını modüler yapılarla nasıl entegre edebileceğinizi anlatacağım. Bu rehberde hem modüler yapıların temel kavramlarını hem de IBM MQ sınıflarının kullanımına dair detayları bulacaksınız.
@@ -403,11 +435,19 @@ IBM MQ, modüler uygulamalar için aşağıdaki dizinleri sağlar:
 
 2. Modüler Uygulama İçin IBM MQ Konfigürasyonu
 JMS Modülü Kullanımı:
-	1. Modülü Tanımlayın: Uygulamanızda com.ibm.mq.javax modülünü talep edin:requires com.ibm.mq.javax;
-	2. Modül Yolunu Ayarlayın: Modül yoluna şu dizini ekleyin:MQ_HOME/java/lib/modules/javax
+	1. Modülü Tanımlayın: Uygulamanızda com.ibm.mq.javax modülünü talep edin:
+
+requires com.ibm.mq.javax;
+	2. Modül Yolunu Ayarlayın: Modül yoluna şu dizini ekleyin:
+
+MQ_HOME/java/lib/modules/javax
 Jakarta Messaging Modülü Kullanımı:
-	1. Modülü Tanımlayın: Uygulamanızda com.ibm.mq.jakarta modülünü talep edin:requires com.ibm.mq.jakarta;
-	2. Modül Yolunu Ayarlayın: Modül yoluna şu dizini ekleyin:MQ_HOME/java/lib/modules/jakarta
+	1. Modülü Tanımlayın: Uygulamanızda com.ibm.mq.jakarta modülünü talep edin:
+
+requires com.ibm.mq.jakarta;
+	2. Modül Yolunu Ayarlayın: Modül yoluna şu dizini ekleyin:
+
+MQ_HOME/java/lib/modules/jakarta
 IBM MQ Sınıfları için Java Desteği:
 IBM MQ'nun Java sınıfları hem JMS hem de Jakarta Messaging modüllerinden desteklenir. Ancak, uygulamanızda yalnızca bir modülü seçerek kullanmanız gerekir.
 
@@ -439,10 +479,6 @@ Hata Yönetimi:
 Modüler Kullanımda Dikkat Edilmesi Gerekenler:
 	• Aynı anda hem JMS hem de Jakarta Messaging API'lerini kullanmayın.
 	• Uygulamanızın sadece bir modül ile uyumlu olduğundan emin olun.
-
-
-***
-
 
 IBM MQ Sınıfları ile Java Kullanımı
 IBM MQ, Java uygulamaları için hem istemci (client) modunda hem de doğrudan bir kuyruk yöneticisine bağlanarak kullanılabilir. Aşağıda IBM MQ sınıflarının Java ortamında nasıl kullanılacağına dair temel bilgiler verilmiştir.
@@ -503,5 +539,3 @@ Bir kuyruğa mesaj göndermeyi ve kuyruğu okumayı gösterir.
 	• Yeni Uygulamalar: IBM MQ sınıfları yerine JMS veya Jakarta Messaging sınıflarını tercih edin.
 	• Yüksek Performans: Bindings modu performans avantajı sağlar ancak kuyruk yöneticisi ile aynı sistemde çalışması gereklidir.
 	• Hata Ayıklama: Sorun durumlarında MQIVP programı ve izleme (trace) özelliği kullanılabilir.
-
-*****
