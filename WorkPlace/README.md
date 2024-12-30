@@ -11,7 +11,7 @@
 Bu yapı, tek yönlü bir mesajlaşma sistemi: Red Hat mesaj gönderiyor, Windows bu mesajları alıyor.
 
 2. İki Taraflı Mesajlaşma Mümkün mü?
-Evet, iki taraflı mesajlaşma mümkündür, ancak dikkat edilmesi gereken birkaç önemli nokta vardır:
+Evet.
 Nasıl Kurulur?
 	1. Windows'tan Red Hat’e Mesaj Göndermek için:
 		○ Windows tarafında:
@@ -106,9 +106,3 @@ Windows Üzerinde:
 	5. Hata Yönetimi Ekleyin:
 		○ Dead Letter Queue (DLQ) oluşturun. Gönderilemeyen mesajlar burada toplanır.
 
-8. Sormanız Gereken Sorular
-	• Queue Manager'lar neden benzersiz isimlere sahip olmalı?
-	• Transmission ve Remote Queue mantığını tekrar anlayabilir miyim?
-	• Kanal türlerinin farkları neler? (Sender, Receiver, Requester, Server)
-	• Hangi güvenlik yöntemlerini ekleyebilirim?
-	• Birden fazla sistem arasında mesajlaşmayı nasıl optimize ederim?
