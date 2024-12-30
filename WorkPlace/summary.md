@@ -1,5 +1,5 @@
 IBM MQ Ubuntu Kurulum Dokümantasyonu
-Bu doküman, IBM MQ'yu Ubuntu üzerinde konfigüre etmek ve bir Windows sunucu kuyruk yöneticisi ile iletişim kurmak için yapılan tüm adımları ayrıntılı olarak açıklamaktadır. Her adım, kullanılan komutlar ve bunların amacı ile birlikte açıklanmıştır.
+Bu doküman, IBM MQ'yu Ubuntu üzerinde konfigüre etmek ve bir Windows sunucu kuyruk yöneticisi ile iletişim kurmak için yapılanı açıklamaktadır.
 
 Başlangıç Kurulumu ve Yükleme
 	1. Gerekli Paketlerin Yüklenmesi:
@@ -86,12 +86,10 @@ Windows (QM1):
 	2. Yerel Kuyruk: WINDOWS.TEST.LOCAL.
 	3. Kanal Kimlik Doğrulama Kuralı: Ubuntu'nun IP adresi (192.168.142.130) kanala erişim sağlar.
 
-Sonuç
-Yukarıdaki yapılandırma ile Ubuntu kuyruk yöneticisinden (QM3), Windows kuyruk yöneticisine (QM1) başarıyla mesaj gönderilebilir. Bu doküman, her bileşenin doğru bir şekilde konfigüre edilmesini ve test edilmesini sağlayan ayrıntılı bir adım adım rehber sunar.
+
 
 IBM MQ Ubuntu Kurulum ve Kullanım Kılavuzu
-Bu doküman, IBM MQ'nun Ubuntu üzerinde nasıl kurulacağını ve Windows sunucusu ile iletişim kuracak şekilde nasıl yapılandırılacağını detaylı bir şekilde açıklamaktadır. Komutların mantığı, yapılandırma değişiklikleri ve karşılaşılabilecek sorunlara yönelik çözümler bu belgede ele alınmıştır.
-
+Bu doküman, IBM MQ'nun Ubuntu üzerinde nasıl kurulacağını ve Windows sunucusu ile iletişim kuracak şekilde nasıl yapılandırılacağını açıklamaktadır. 
 Başlangıç Kurulumu ve Yapılandırma
 	1. Gerekli Paketlerin Yüklenmesi:
 		○ IBM MQ için gerekli .deb dosyalarını yükleyin:
@@ -180,35 +178,7 @@ Gelişmiş ve Alternatif Yükleme Seçenekleri
 		○ Sadece temel mesajlaşma özelliklerini içerir.
 		○ Küçük ölçekli kurulumlar için idealdir.
 
-Sonuç ve Öneriler
-	• Gönderici (Ubuntu) ve alıcı (Windows) için:
-		○ Gönderici: Sender kanal ve transmission queue.
-		○ Alıcı: Receiver kanal ve local queue.
-	• IBM MQ'yu profesyonel seviyede öğrenmek için:
-		○ Kılavuzlar: IBM MQ resmi dokümantasyonuna göz atın.
-		○ Uygulama: Test ortamları kurarak gerçek senaryoları simüle edin.
-		○ Monitoring Araçları: MQ Explorer, Grafana, veya Prometheus gibi araçları kullanarak izleme yapın.
 
-	1. Komutların Mantığı ve Kullanımı:
-		○ Her bir komutun amacı, nasıl yazılması gerektiği, ve senaryolara göre değişiklik yapılması.
-	2. Değişiklik veya Ayar Yapma:
-		○ Queue Manager, Listener, Channel gibi nesnelerin değiştirilmesi ve yapılandırılması.
-	3. Queue Türleri ve Kullanımları:
-		○ Local Queue, Remote Queue, Alias Queue, Transmission Queue gibi kavramların detaylı açıklaması ve kullanım örnekleri.
-	4. Log Analizi ve Hata Çözümleri:
-		○ IBM MQ loglarından nasıl veri alınır ve gerçek dünyadaki sık karşılaşılan sorunlar nasıl çözülür?
-	5. Server ve Advanced Server Yüklemesi:
-		○ Paket farkları, gereksiz bileşenlerin kaldırılması ve yalnızca gerekli yapıların bırakılması.
-	6. Update ve Bakım Süreçleri:
-		○ IBM MQ'nun güncellenmesi, sürüm yükseltme yöntemleri ve risklerin yönetimi.
-	7. IBM MQ Ekosistemindeki Diğer Araçlar:
-		○ Grafana entegrasyonu, IBM MQ Explorer kullanımı ve bu araçların avantajları.
-	8. Gönderici ve Alıcı için Gereken Yapılar:
-		○ Queue ve Channel yapılandırmalarının temel gereklilikleri ve örnekler.
-	9. Global Olarak MQ ile Karşılaşılan Sorunlar:
-		○ Gerçek dünyadaki en yaygın sorunlar ve profesyonel çözümler.
-	10. Bilmeniz Gereken Diğer Konular:
-		○ IBM MQ’nun enterprise projelerdeki rolü ve ileri seviye kavramlar.
 
 1. Komutların Mantığı ve Kullanımı
 Temel Mantık:
@@ -315,8 +285,7 @@ Adımlar:
 		○ Queue Manager, Sender Channel, Transmission Queue, ve Remote Queue oluşturulur.
 	2. Alıcı Tarafı:
 		○ Receiver Channel ve Local Queue oluşturulur.
-Bilinmesi Gerekenler:
-	• MQ'da temel nesneleri anlamak önemlidir: Queue Manager, Queue, Channel.
+
 
 1. Temel Terimlerin Açıklamaları
 MAXDEPTH (Maximum Depth)
@@ -420,17 +389,7 @@ Alıcı Taraf (Windows):
 	1. Receiver Channel: UBUNTU.TO.WINDOWS
 	2. Local Queue: WINDOWS.TEST.LOCAL
 
-8. IBM MQ ile Profesyonel Olmak için Bilinmesi Gerekenler
-	1. Temel Kavramları Anlamak:
-		○ Queue Manager, Channel, Listener, Queue.
-	2. Komutları Anlamak:
-		○ IBM MQ komutlarının her birinin mantığını ve kullanım yerini öğrenin.
-	3. Güvenlik Mekanizmaları:
-		○ CHLAUTH, MCAUSER, SSL gibi konulara hâkim olun.
-	4. Log Analizi:
-		○ /var/mqm/errors/ dizininden logları okuyarak sorunları hızlıca çözebilmelisiniz.
-	5. Gerçek Senaryoları İnceleyin:
-		○ Büyük şirketlerin yaşadığı sorunları ve çözümlerini öğrenmek için vaka çalışmaları okuyun.
+
 
 1. IBM MQ'da Mesaj Gönderme ve Alma Süreci
 Mesaj Gönderme ve Alma Mantığı
@@ -555,8 +514,8 @@ SET CHLAUTH('MY.CHANNEL') TYPE(ADDRESSMAP) ADDRESS('192.168.1.1') MCAUSER('mqm')
 	5. Mesajların Yönetimi:
 		○ IBM MQ Explorer veya komut satırı araçlarıyla yönetim sağlanır.
 
-IBM MQ Mesaj Gönderme, Alma ve Yapılandırma Rehberi
-Bu doküman, IBM MQ ile mesaj gönderme ve alma Ŀişleyişini, profesyonel adımlarla kontrol etme yollarını, genel komutların açıklamalı listesini ve SSL gibi ileri düzey konuları ele alır. Ayrıca, Java kullanarak bir uygulama geliştirerek mesaj gönderme/alma konsolu yapımı ve VMware içindeki sanal makineler ile Grafana entegrasyonu gibi konuları detaylı olarak açıklar.
+IBM MQ Mesaj Gönderme, Alma ve Yapılandırma 
+
 
 1. Mevcut Yapının Durumu
 	• Windows (QM1): Alıcı olarak konfigüre edilmiştir.
@@ -667,18 +626,15 @@ docker run -d -p 8080:8080 prom/mq_exporter
 	2. Grafana Datasource Ekleme: Prometheus’u kaynak olarak ekleyin.
 	3. MQ Dashboard: Grafana’daki hazır şablonlarla kuyruğunuzun durumunu izleyin.
 
-7. Sonuç
-IBM MQ'yu profesyonel seviyede anlamak ve kullanmak için:
-	• Komutları ezberlemek yerine mantığını kavrayın.
-	• Test ve monitoring için çeşitli uygulamaları (örn: Grafana) entegre edin.
-	• Gerçek senaryoları (tek/ çift yönlü mesajlaşma) anlayın.
 
-IBM MQ - Profesyonel Kullanım ve SSL Channel Yapılandırma Rehberi
-Bu doküman, IBM MQ ile ilgili sorduğunuz tüm sorulara detaylı bir şekilde yanıt vermek üzere oluşturulmuştur. SSL channel oluşturma, sık kullanılan komutların listesi, izleme çözümleri ve macOS üzerinde Java uygulaması ile IBM MQ entegrasyonu gibi konular kapsanmıştır.
+
+IBM MQ - SSL Channel Yapılandırma Rehberi
 
 1. SSL Channel Nedir ve Nasıl Oluşturulur?
 SSL Channel Nedir?
 SSL (Secure Sockets Layer) veya TLS (Transport Layer Security), IBM MQ üzerinden iletilen mesajların şifrelenmesini sağlayan bir protokoldür. Bu, mesajların güvenliğini artırmak ve kimlik doğrulama için kullanılır.
+
+
 SSL Channel Oluşturma Adımları
 	1. SSL Sertifikası Oluşturma:
 		○ IBM MQ, GSKit'i kullanarak kendi kendine imzalanmış sertifikalar oluşturabilir. Sertifika otoritesinden (CA) alınan sertifikalar da kullanılabilir.
@@ -702,7 +658,7 @@ DEFINE CHANNEL('SECURE.SDR') CHLTYPE(SDR) TRPTYPE(TCP) SSLCIPH('TLS_RSA_WITH_AES
 		○ Çalışan bir channel'da SSL özelliklerini kontrol edin:
 DISPLAY CHANNEL('SECURE.SDR') SSLCIPH SSLPEER
 
-2. IBM MQ Komutları Listesi
+3. IBM MQ Komutları Listesi
 IBM MQ'da kullanılan en sık komutlar ve açıklamaları:
 Queue Manager Komutları
 	• crtmqm [Queue Manager Adı]: Yeni bir queue manager oluşturur.
@@ -723,7 +679,7 @@ DEFINE QREMOTE('MY.REMOTE.QUEUE') RNAME('REMOTE.QUEUE') RQMNAME('REMOTEQM') XMIT
 	• DISPLAY QLOCAL/QREMOTE: Kuyruk detaylarını gösterir.
 	• DELETE QLOCAL/QREMOTE: Belirtilen kuyruğu siler.
 
-3. VMware İçinde IBM MQ Yapısı ve Gözlemleme
+4. VMware İçinde IBM MQ Yapısı ve Gözlemleme
 IBM MQ Explorer
 	• IBM MQ Explorer, IBM MQ queue manager'larını ve kuyruğlarını grafiksel bir arayüzden izlemek için kullanılır.
 	• VMware üzerinde kurulu Windows sisteminizdeki Explorer'a, Ubuntu ve RedHat queue manager'ını eklemek için:
@@ -737,7 +693,7 @@ Grafana ile Gözlemleme
 		3. Grafana'da Prometheus veri kaynağını ekleyin.
 Grafana, hem üretici hem de tüketici kuyrukların derinliklerini, mesaj gecikmelerini ve sistem performansını gözlemlemek için çok faydalıdır.
 
-4. Java Uygulaması ile IBM MQ Kullanımı
+5. Java Uygulaması ile IBM MQ Kullanımı
 MacBook üzerinde IntelliJ veya Eclipse kullanarak bir Java uygulaması geliştirerek, IBM MQ'ya mesaj gönderme ve alma işlemlerini yapabilirsiniz.
 Bağlantı İçin Gerekenler:
 	1. IBM MQ Client Kütüphanesi:
@@ -759,9 +715,7 @@ queue.close();
 queueManager.disconnect();
 	3. Grafana ile Bağlantı:
 		○ Java uygulamanızın Prometheus’tan metrik toplamasını sağlamak için Prometheus Java Clientı kullanabilirsiniz.
-
-5. Sonuç ve Test Ortamının Profesyonellik Düzeyi
-Sizin için oluşturulan test ortamı (Windows, Ubuntu ve RedHat IBM MQ entegrasyonu) profesyonel bir ortamın temellerini oluşturmaktadır. SSL channel ekleme, Grafana ile gözlemleme ve Java uygulaması ile testler bu ortamı daha da geliştirerek gerçek şirket ortamlarındaki gereksinimlere yakın bir hale getirecektir.
+---
 
 1. IBM MQ Komutlarının Açıklaması ve Kullanımı
 IBM MQ'da komutların mantığı ve parametreleri şöyledir:
