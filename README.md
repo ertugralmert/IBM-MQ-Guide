@@ -10,12 +10,15 @@
  -> Monitoring
  -> Troubleshooting and Support
  -> IBM MQ Explorer
- -> ıBM MQ in Containers
+ -> ıBM MQ in Containers  
+ -> Multi Instance
 
  
 > Lütfen bu dökümanda incelemek ve okumak için "preview" kullanmayın "code" sekmesi altında dökümanı okuyun veya inceleyin!
 
+> install ve örnekler "WorkPlace" dosyasında. Redhat, ubuntu ve windows üzerine kurulum.
 
-### for installation and examples go to : WorkPlace folder. : redhat, ubuntu, windows mq installation and examples....
+> Multi Instance Kurulum için MultiInstance_MIMQ dosyasına bakabilirsiniz.
+
 
 ############################# Mert Ertugral #############################
